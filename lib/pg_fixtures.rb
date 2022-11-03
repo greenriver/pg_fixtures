@@ -41,9 +41,11 @@ class PgFixtures
   # truncating each table before loading
   def restore
     truncate
-    options = "-h #{host} -p #{port} -U #{username}"
+    # options = "-h #{host} -p #{port} -U #{username}"
     # connection.execute(File.read(file_path))
-    `PGPASSWORD=#{password} psql #{options} #{db_name} -f #{file_path}`
+    # `PGPASSWORD=#{password} psql #{options} #{db_name} -f #{file_path}`
+    # NOTE: you must store the connection string in `.pg_pass` for this to work
+    `psql #{db_name} -f #{file_path}`
     fix_sequences
   end
 
@@ -57,8 +59,10 @@ class PgFixtures
     # sending connection string, including password on the command line
     # is not great, but this should only be used in a test environment
     # options = "-h #{host} -p #{port} -U #{username} #{pg_table_string} --data-only --column-inserts"
-    options = "-h #{host} -p #{port} -U #{username} #{pg_table_string} --data-only"
-    `PGPASSWORD=#{password} pg_dump #{options} #{db_name} > #{file_path}`
+    # options = "-h #{host} -p #{port} -U #{username} #{pg_table_string} --data-only"
+    # `PGPASSWORD=#{password} pg_dump #{options} #{db_name} > #{file_path}`
+    # NOTE: you must store the connection string in `.pg_pass` for this to work
+    `pg_dump #{pg_table_string} --data-only #{db_name} > #{file_path}`
   end
 
   def pg_table_string
