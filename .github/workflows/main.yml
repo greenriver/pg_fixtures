@@ -36,7 +36,7 @@ jobs:
             tzdata \
             git \
             bash \
-            build-base libxml2-dev libxslt-dev postgresql-dev \
+            build-base postgresql-dev \
             postgresql postgis geos geos-dev \
             shared-mime-info
 

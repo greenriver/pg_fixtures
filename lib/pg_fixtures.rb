@@ -41,8 +41,10 @@ class PgFixtures
   # truncating each table before loading
   def restore
     truncate
+    puts 'truncated'
     options = "-h #{host} -p #{port} -U #{username}"
     `PGPASSWORD=#{password} psql #{options} #{db_name} -f #{file_path}`
+    puts 'data restored, fixing sequences'
     fix_sequences
   end
 
