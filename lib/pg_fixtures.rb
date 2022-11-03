@@ -43,6 +43,7 @@ class PgFixtures
     truncate
     puts 'truncated'
     options = "-h #{host} -p #{port} -U #{username}"
+    binding.pry
     `PGPASSWORD=#{password} psql #{options} #{db_name} -f #{file_path}`
     puts 'data restored, fixing sequences'
     fix_sequences
