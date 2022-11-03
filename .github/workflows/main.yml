@@ -37,8 +37,7 @@ jobs:
             git \
             bash \
             build-base postgresql-dev \
-            postgresql postgis \
-            shared-mime-info
+            postgresql postgis
 
         echo "postgres:5432:*:postgres:postgres" > ~/.pgpass
         chmod 600 ~/.pgpass
