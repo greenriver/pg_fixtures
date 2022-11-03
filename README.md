@@ -20,13 +20,20 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
-
-## Development
-
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
-
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and the created tag, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+PG Fixtures will speed up subsequent test runs by storing the DB state after complex and lengthy processing.For subsequent runs, instead of re-running the setup routine, PG Fixtures simply loads the data from the SQL file.
+```
+pg_fixture = PgFixtures.new(
+    directory: 'spec/pg_fixtures',
+    excluded_tables: ['versions', 'spatial_ref_sys', 'uploads']
+    model: ApplicationRecord,
+)
+if pg_fixture.exists?
+    pg_fixture.restore
+else
+    # ... do some involved data manipulation that takes significant time
+    pg_fixture.store
+end
+```
 
 ## Contributing
 
