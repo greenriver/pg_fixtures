@@ -33,12 +33,7 @@ jobs:
     - name: Set up dependencies
       run: |
         apk add --no-cache \
-            tzdata \
-            git \
             bash \
-            build-base libxml2-dev libxslt-dev postgresql-dev \
-            libgcc libstdc++ libx11 glib libxrender libxext libintl ttf-dejavu \
-            nss harfbuzz ca-certificates \
             postgresql postgis geos geos-dev \
             shared-mime-info
 
