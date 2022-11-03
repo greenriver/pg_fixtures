@@ -45,7 +45,6 @@ jobs:
         echo "postgres:5432:*:postgres:postgres" > ~/.pgpass
         chmod 600 ~/.pgpass
 
-        yarn install
         gem install bundler --version=2.3.25
     - name: Install gems
       run: |
