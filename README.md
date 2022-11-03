@@ -1,8 +1,6 @@
-# PgFixtures
+# PG Fixtures
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/pg_fixtures`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+PG Fixtures is loosely based on [Fixpoints](https://github.com/motine/fixpoints) in that it saves a copy of your databases to files and reloads your databases later saving precious time if you have test that require lots of setup.  PG Fixtures is different because it is Postgres specific, and uses `db_dump` and `psql` to decrease the memory requirements of saving and loading data.
 
 ## Installation
 
