@@ -64,7 +64,7 @@ class PgFixtures
       options << "-h #{host}" if host.present?
       options << "-U #{username}" if username.present?
       options << "-p #{port}" if port.present?
-    end
+    end.join(' ')
   end
 
   def pg_table_string
