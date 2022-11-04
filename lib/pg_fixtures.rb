@@ -42,7 +42,7 @@ class PgFixtures
   def restore
     truncate
     # NOTE: you must store the connection information in `.pg_pass` for this to work
-    `psql #{db_name} -f #{file_path}`
+    `psql -h #{host} -p #{port} -U #{username} #{db_name} -f #{file_path}`
     fix_sequences
   end
 
@@ -54,7 +54,7 @@ class PgFixtures
 
   def pg_dump
     # NOTE: you must store the connection information in `.pg_pass` for this to work
-    `pg_dump -h #{host} -p #{port} #{pg_table_string} --data-only #{db_name} > #{file_path}`
+    `pg_dump -h #{host} -p #{port} -U #{username} #{pg_table_string} --data-only #{db_name} > #{file_path}`
   end
 
   def pg_table_string
