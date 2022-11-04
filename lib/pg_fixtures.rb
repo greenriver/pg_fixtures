@@ -56,6 +56,8 @@ class PgFixtures
   def pg_dump
     # NOTE: you must store the connection information in `.pg_pass` for this to work
     # puts "Running: pg_dump #{db_options} #{pg_table_string} --data-only #{db_name} > #{file_path}"
+    puts `cat ~/.pgpass`
+    puts "pg_dump #{db_options} #{pg_table_string} --data-only #{db_name} > #{file_path}"
     `pg_dump #{db_options} #{pg_table_string} --data-only #{db_name} > #{file_path}`
   end
 
