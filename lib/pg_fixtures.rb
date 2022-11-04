@@ -43,7 +43,7 @@ class PgFixtures
     truncate
     # NOTE: you must store the connection information in `.pg_pass` for this to work
     puts "Running psql -h #{host} -p #{port} -U #{username} #{db_name} -f #{file_path}"
-    `psql -h #{host} -p #{port} -U #{username} #{db_name} -f #{file_path}`
+    puts `psql -h #{host} -p #{port} -U #{username} #{db_name} -f #{file_path}`
     fix_sequences
   end
 
@@ -55,8 +55,10 @@ class PgFixtures
 
   def pg_dump
     # NOTE: you must store the connection information in `.pg_pass` for this to work
-    puts "pg_dump -h #{host} -p #{port} -U #{username} #{pg_table_string} --data-only #{db_name} > #{file_path}"
-    `pg_dump -h #{host} -p #{port} -U #{username} #{pg_table_string} --data-only #{db_name} > #{file_path}`
+    puts `ls -lh ~/.pgpass`
+    puts `cat ~/.pgpass`
+    puts "Running: pg_dump -h #{host} -p #{port} -U #{username} #{pg_table_string} --data-only #{db_name} > #{file_path}"
+    puts `pg_dump -h #{host} -p #{port} -U #{username} #{pg_table_string} --data-only #{db_name} > #{file_path}`
   end
 
   def pg_table_string
