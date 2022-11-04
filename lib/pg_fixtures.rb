@@ -42,8 +42,8 @@ class PgFixtures
   def restore
     truncate
     # NOTE: you must store the connection information in `.pg_pass` for this to work
-    puts "Running psql -h #{host} -p #{port} -U #{username} #{db_name} -f #{file_path}"
-    puts `psql -h #{host} -p #{port} -U #{username} #{db_name} -f #{file_path}`
+    puts "Running psql #{db_options} #{db_name} -f #{file_path}"
+    `psql #{db_options} #{db_name} -f #{file_path}`
     fix_sequences
   end
 
@@ -55,14 +55,20 @@ class PgFixtures
 
   def pg_dump
     # NOTE: you must store the connection information in `.pg_pass` for this to work
-    puts `ls -lh ~/.pgpass`
-    puts `cat ~/.pgpass`
-    puts "Running: pg_dump -h #{host} -p #{port} -U #{username} #{pg_table_string} --data-only #{db_name} > #{file_path}"
-    puts `pg_dump -h #{host} -p #{port} -U #{username} #{pg_table_string} --data-only #{db_name} > #{file_path}`
+    puts "Running: pg_dump #{db_options} #{pg_table_string} --data-only #{db_name} > #{file_path}"
+    `pg_dump #{db_options} #{pg_table_string} --data-only #{db_name} > #{file_path}`
+  end
+
+  def db_options
+    [].tap do |options|
+      options << "-h #{host}" if host.present?
+      options << "-U #{username}" if username.present?
+      options << "-p #{port}" if port.present?
+    end
   end
 
   def pg_table_string
-    excluded_tables.map { |t| "--exclude-table=#{t}" }.join(" ")
+    "--exclude-table='#{excluded_tables.map { |t| "\"#{t}\"" }.join('|')}'"
   end
 
   def file_path
