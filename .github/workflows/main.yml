@@ -9,8 +9,8 @@ on:
 
 jobs:
   tests:
-    runs-on: ubuntu-20.04
-    container: ruby:2.7.6-alpine3.15
+    runs-on: ubuntu-24.04
+    container: ruby:3.4.5-slim-bookworm
     services:
       postgres:
         image: postgis/postgis:12-3.1-alpine
@@ -29,23 +29,23 @@ jobs:
           - 5432:5432
 
     steps:
-    - uses: actions/checkout@v3
-    - name: Set up dependencies
-      run: |
-        apk add --no-cache \
-            tzdata \
-            git \
-            bash \
-            build-base postgresql-dev \
-            postgresql postgis
+      - uses: actions/checkout@v3
+      - name: Set up dependencies
+        run: |
+          apk add --no-cache \
+              tzdata \
+              git \
+              bash \
+              build-base postgresql-dev \
+              postgresql postgis
 
-        echo "postgres:5432:*:postgres:postgres" > ~/.pgpass
-        chmod 600 ~/.pgpass
+          echo "postgres:5432:*:postgres:postgres" > ~/.pgpass
+          chmod 600 ~/.pgpass
 
-        gem install bundler --version=2.3.25
-    - name: Install gems
-      run: |
-        bundle install --jobs 4 --retry 3
-    - name: Run tests
-      run: |
-        bundle exec rspec --color --format p spec
+          gem install bundler --version=2.3.25
+      - name: Install gems
+        run: |
+          bundle install --jobs 4 --retry 3
+      - name: Run tests
+        run: |
+          bundle exec rspec --color --format p spec
