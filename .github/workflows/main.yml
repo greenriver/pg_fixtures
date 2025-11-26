@@ -36,7 +36,7 @@ jobs:
           apt-get install -y --no-install-recommends \
               git \
               build-essential \
-              postgresql-client-17
+              postgresql-client
 
           echo "postgres:5432:*:postgres:postgres" > ~/.pgpass
           chmod 600 ~/.pgpass
